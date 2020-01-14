@@ -31,7 +31,9 @@ public class Main
 
         System.out.println("Teacher: " + course.getTeacher().getName());
 
-        System.out.println(purchaseList.getCourse().getName() + " - " + purchaseList.getStudent().getName());
+        System.out.println("Id: (" + purchaseList.getCourse().getId() + ") " + purchaseList.getCourse().getName()
+                        + " - " +
+                        "Id: (" + purchaseList.getStudent().getId() + ") " + purchaseList.getStudent().getName());
 
         sessionFactory.close();
     }

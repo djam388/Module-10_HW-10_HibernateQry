@@ -9,7 +9,13 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 import utils.PurchaseListId;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
 
 public class Main
 {
@@ -20,20 +26,34 @@ public class Main
         SessionFactory sessionFactory = metadata.getSessionFactoryBuilder().build();
         Session session = sessionFactory.openSession();
 
-        Student students = session.get(Student.class, 1);
+//        Student students = session.get(Student.class, 1);
+//
+//        Course course = session.get(Course.class, 10);
+//
+//        PurchaseList purchaseList = session.get(PurchaseList.class, new PurchaseListId(students.getName(), course.getName()));
+//
+//
+//        System.out.println(students.getId() + ": " + students.getName());
+//
+//        System.out.println("Teacher: " + course.getTeacher().getName());
+//
+//        System.out.println("Id: (" + purchaseList.getCourse().getId() + ") " + purchaseList.getCourse().getName()
+//                        + " - " +
+//                        "Id: (" + purchaseList.getStudent().getId() + ") " + purchaseList.getStudent().getName());
 
-        Course course = session.get(Course.class, 10);
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<PurchaseList> query = builder.createQuery(PurchaseList.class);
+        Root<PurchaseList> root = query.from(PurchaseList.class);
+        query.select(root);
+        Query<PurchaseList> q = session.createQuery(query);
+        List<PurchaseList> list = q.getResultList();
 
-        PurchaseList purchaseList = session.get(PurchaseList.class, new PurchaseListId(students.getName(), course.getName()));
+        for (PurchaseList purchased : list)
+        {
+            System.out.println("Course Id: " + purchased.getCourse().getId() + " Course name: " + purchased.getCourse().getName()
+                                + " --> Student Id: " + purchased.getStudent().getId() + " Student name: " + purchased.getStudent().getName());
 
-
-        System.out.println(students.getId() + ": " + students.getName());
-
-        System.out.println("Teacher: " + course.getTeacher().getName());
-
-        System.out.println("Id: (" + purchaseList.getCourse().getId() + ") " + purchaseList.getCourse().getName()
-                        + " - " +
-                        "Id: (" + purchaseList.getStudent().getId() + ") " + purchaseList.getStudent().getName());
+        }
 
         sessionFactory.close();
     }

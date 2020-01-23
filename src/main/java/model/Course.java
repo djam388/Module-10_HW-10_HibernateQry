@@ -4,6 +4,7 @@ import utils.CourseType;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "courses")
@@ -24,6 +25,7 @@ public class Course implements Serializable
     private String description;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
     @Column(name = "students_count")
@@ -33,6 +35,12 @@ public class Course implements Serializable
 
     @Column(name = "price_per_hour")
     private float pricePerHour;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "subscriptions",
+            joinColumns = {@JoinColumn(name = "course_id")},
+            inverseJoinColumns = {@JoinColumn(name = "student_id")})
+    List<Student> students;
 
     public int getId() {
         return id;
@@ -104,5 +112,13 @@ public class Course implements Serializable
 
     public void setPricePerHour(float pricePerHour) {
         this.pricePerHour = pricePerHour;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }

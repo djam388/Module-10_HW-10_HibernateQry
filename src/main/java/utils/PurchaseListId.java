@@ -1,11 +1,19 @@
 package utils;
 
+import model.Course;
+import model.Student;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
 public class PurchaseListId implements Serializable {
+
+
     private String student_name;
     private String course_name;
 
@@ -46,4 +54,50 @@ public class PurchaseListId implements Serializable {
     public int hashCode() {
         return Objects.hash(student_name, course_name);
     }
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name="student_name", referencedColumnName = "name")
+//    private Student studentName;
+//
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name="course_name", referencedColumnName = "name")
+//    private Course courseName;
+//
+//    public PurchaseListId() {
+//    }
+//
+//    public PurchaseListId(Student studentName, Course courseName) {
+//        this.studentName = studentName;
+//        this.courseName = courseName;
+//    }
+//
+//    public Student getStudentName() {
+//        return studentName;
+//    }
+//
+//    public void setStudentName(Student studentName) {
+//        this.studentName = studentName;
+//    }
+//
+//    public Course getCourseName() {
+//        return courseName;
+//    }
+//
+//    public void setCourseName(Course courseName) {
+//        this.courseName = courseName;
+//    }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        PurchaseListId that = (PurchaseListId) o;
+//        return Objects.equals(studentName, that.studentName) &&
+//                Objects.equals(courseName, that.courseName);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(studentName, courseName);
+//    }
 }

@@ -11,6 +11,7 @@ public class Subscription
 {
     @EmbeddedId
     private SubscriptionId Id;
+
     @Column(name = "student_id", insertable=false, updatable=false)
     private int studentId;
 

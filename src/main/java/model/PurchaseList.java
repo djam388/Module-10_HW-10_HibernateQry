@@ -3,10 +3,11 @@ package model;
 import utils.PurchaseListId;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 @Entity
 @Table(name = "purchaselist")
-public class PurchaseList
+public class PurchaseList implements Serializable
 {
 
     @EmbeddedId

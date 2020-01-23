@@ -13,11 +13,11 @@ public class PurchaseList implements Serializable
     @EmbeddedId
     private PurchaseListId id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_name", referencedColumnName = "name", insertable = false, updatable = false)
     private Student student;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_name", referencedColumnName = "name", insertable = false, updatable = false)
     private Course course;
 

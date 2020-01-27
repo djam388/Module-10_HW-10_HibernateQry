@@ -1,5 +1,6 @@
 package model;
 
+import utils.LinkedPurchasedListId;
 import utils.PurchaseListId;
 
 import javax.persistence.*;
@@ -9,9 +10,9 @@ import java.io.Serializable;
 @Table(name = "linkedpurchaselist")
 
 public class LinkedPurchaseList implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+
+    @EmbeddedId
+    private LinkedPurchasedListId id;
 
     @Column(name = "course_id")
     private int courseId;
@@ -35,11 +36,11 @@ public class LinkedPurchaseList implements Serializable {
     }
 
 
-    public int getId() {
+    public LinkedPurchasedListId getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(LinkedPurchasedListId id) {
         this.id = id;
     }
 

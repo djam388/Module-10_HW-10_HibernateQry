@@ -6,11 +6,13 @@ import model.PurchaseList;
 import model.Student;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
+import utils.LinkedPurchasedListId;
 import utils.PurchaseListId;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -49,6 +51,13 @@ public class Main
         Query<PurchaseList> q = session.createQuery(query);
         List<PurchaseList> list = q.getResultList();
 
+
+        Transaction transaction = session.beginTransaction();
+        Query queryDelete = session.createQuery("DELETE from LinkedPurchaseList");
+        queryDelete.executeUpdate();
+        transaction.commit();
+
+
         for (PurchaseList purchased : list)
         {
             LinkedPurchaseList linkedPurchaseList = new LinkedPurchaseList();
@@ -56,6 +65,9 @@ public class Main
 //            System.out.println("Course Id: " + purchased.getCourse().getId() + " Course name: " + purchased.getCourse().getName()
 //                                + " --> Student Id: " + purchased.getStudent().getId() + " Student name: " + purchased.getStudent().getName());
 
+
+            linkedPurchaseList.setId(new LinkedPurchasedListId(purchased.getCourse().getId(),
+                    purchased.getStudent().getId()));
             linkedPurchaseList.setCourseId(purchased.getCourse().getId());
             linkedPurchaseList.setCourseName(purchased.getCourse().getName());
             linkedPurchaseList.setCoursePrice(purchased.getCourse().getPrice());
@@ -63,6 +75,7 @@ public class Main
             linkedPurchaseList.setStudentId(purchased.getStudent().getId());
             linkedPurchaseList.setStudentName(purchased.getStudent().getName());
             //session.beginTransaction();
+
             session.save(linkedPurchaseList);
             session.beginTransaction().commit();
         }

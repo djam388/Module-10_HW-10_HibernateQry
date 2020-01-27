@@ -55,49 +55,4 @@ public class PurchaseListId implements Serializable {
         return Objects.hash(student_name, course_name);
     }
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name="student_name", referencedColumnName = "name")
-//    private Student studentName;
-//
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name="course_name", referencedColumnName = "name")
-//    private Course courseName;
-//
-//    public PurchaseListId() {
-//    }
-//
-//    public PurchaseListId(Student studentName, Course courseName) {
-//        this.studentName = studentName;
-//        this.courseName = courseName;
-//    }
-//
-//    public Student getStudentName() {
-//        return studentName;
-//    }
-//
-//    public void setStudentName(Student studentName) {
-//        this.studentName = studentName;
-//    }
-//
-//    public Course getCourseName() {
-//        return courseName;
-//    }
-//
-//    public void setCourseName(Course courseName) {
-//        this.courseName = courseName;
-//    }
-//
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        PurchaseListId that = (PurchaseListId) o;
-//        return Objects.equals(studentName, that.studentName) &&
-//                Objects.equals(courseName, that.courseName);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(studentName, courseName);
-//    }
 }
